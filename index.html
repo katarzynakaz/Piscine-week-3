@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1 class="px-3 mt-3 mb-5 text-primary">Spaced Repetition Tracker</h1>
+
+    <div class="my-3 px-3">
+      <label for="userSelection" class="form-label"
+        >Select the user to view their revision dates</label
+      >
+      <select
+        id="userSelection"
+        class="form-select"
+        name="userSelection"
+        required
+      >
+        <option value="default">Select user</option>
+        <option value="option1">User 1</option>
+        <option value="option2">User 2</option>
+        <option value="option3">User 3</option>
+        <option value="option4">User 4</option>
+        <option value="option5">User 5</option>
+      </select>
+    </div>
+
+    <form class="my-5 px-3">
+      <h2 class="h4 mb-2">Add a new topic to the revision schedule</h2>
+
+      <label for="firstDate">Select date:</label>
+
+      <input
+        type="date"
+        id="firstDate"
+        class="form-control datepicker"
+        name="firstDate"
+        required
+      />
+      <span id="dateDisplay"></span>
+
+      <br />
+      <label for="topicName">Subject:</label>
+      <input
+        type="text"
+        id="topicName"
+        class="form-control"
+        placeholder="Enter topic name"
+        required
+      />
+      <br />
+      <button type="submit" class="btn btn-primary fw-bold my-4">
+        Add to schedule
+      </button>
+      <br />
+      <span id="topicAdded" class="text-success my-2"></span>
+    </form>
+    <div id="displayAgendaBox"></div>
+
+    <script src="script.mjs" type="module"></script>
+  </body>
+</html>
