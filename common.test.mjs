@@ -1,22 +1,32 @@
 import assert from "node:assert";
 import test from "node:test";
 
-function sortDatesAscending(data) {
-	return [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+const allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+
+function cleanInput(inputValue, fieldName) {
+  let cleanedValue = inputValue.trim().toUpperCase();
+
+  if (cleanedValue.length === 0 || cleanedValue.length > 50) {
+    return null;
+  }
+
+  for (let char of cleanedValue) {
+    if (!allowedChars.includes(char)) {
+      return null;
+    }
+  }
+
+  return cleanedValue;
 }
 
-test("sorts dates ascending correctly", () => {
-	const data = [
-		{ topic: "B", date: "2025-12-01" },
-		{ topic: "A", date: "2025-11-01" },
-		{ topic: "C", date: "2025-10-15" },
-	];
+test("returns null for empty input", () => {
+  const result = cleanInput("   ", "Title");
+  assert.equal(result, null);
+});
 
-	const sorted = sortDatesAscending(data);
 
-	assert.deepEqual(
-		sorted.map((d) => d.date),
-		["2025-10-15", "2025-11-01", "2025-12-01"],
-		"Dates should be in ascending order"
-	);
+test("returns null for input lonmger than 50 characters", () => {
+  const longInput = "A".repeat(51);
+  const result = cleanInput(longInput, "Title");
+  assert.equal(result, null);
 });
