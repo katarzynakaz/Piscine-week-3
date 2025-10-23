@@ -47,13 +47,18 @@ export function renderBookmarks(data) {
 		const titleURL = document.createElement("a");
 		titleURL.href = entry.url;
 		titleURL.textContent = entry.title;
+		titleURL.target = "_blank";
 
 		const descriptionText = document.createElement("p");
-		const createdAt = new Date(entry.createdAt);
+		descriptionText.textContent = `Description: ${entry.description}`
+
+		const timestampP = document.createElement("p");
+		timestampP.textContent = `Created: ${new Date(entry.createdAt).toISOString().split('.')[0].replace('T', ' ')}`;
+		
 
 		item.appendChild(titleURL);
 		item.appendChild(descriptionText);
-		item.appendChild(timestampText);
+		item.appendChild(timestampP);
 		
 		list.appendChild(item);
 
