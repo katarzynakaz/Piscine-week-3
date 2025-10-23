@@ -66,7 +66,7 @@ form.addEventListener("submit", (event) => {
     url: urlValue,
     title: titleValue,
     description: descriptionValue,
-    createdTime: new Date().toISOString(), 
+    createdAt: new Date().toISOString(), 
   }];
 
   if (

@@ -22,8 +22,8 @@ selectedUser.addEventListener("change", (e) => {
 	const userData = getData(selectedUserId);
 	// const currentDate = new Date().toISOString().split("T")[0];
 
-	if (!userData) {
-		displayAgenda.textContent = "There are no upcoming bookmarks for this user";
+	if (!userData || userData.length === 0) {
+		displayBookmarks.textContent = "There are no upcoming bookmarks for this user";
 		return;
 	}
 	// const futureDate = userData.filter((entry) => entry.date >= currentDate);
