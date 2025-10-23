@@ -4,7 +4,7 @@ import { getData } from "./storage.mjs";
 
 window.onload = function () {
 	const users = getUserIds();
-	// selectDate();
+
 };
 
 const selectedUser = document.querySelector("#userSelection");
@@ -20,13 +20,11 @@ selectedUser.addEventListener("change", (e) => {
 	}
 
 	const userData = getData(selectedUserId);
-	// const currentDate = new Date().toISOString().split("T")[0];
 
 	if (!userData || userData.length === 0) {
 		displayBookmarks.textContent = "There are no bookmarks for this user";
 		return;
 	}
-	// const futureDate = userData.filter((entry) => entry.date >= currentDate);
 
 	renderBookmarks(userData);
 });

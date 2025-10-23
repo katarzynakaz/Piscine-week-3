@@ -13,23 +13,6 @@ const displayBookmarks = document.querySelector("#displayBookmarks");
 
 const allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
 
-// const cleanInput = () => {
-//   let cleanedTitleValue = titleInput.value.trim().toUpperCase();
-
-//   if (cleanedTitleValue.length === 0 || cleanedTitleValue.length > 50) {
-//     alert("Bookmark title must be between 1 and 50 characters and not empty.");
-//     return null;
-//   }
-
-//   for (let char of cleanedTitleValue) {
-//     if (!allowedChars.includes(char)) {
-//       alert("Allowed characters are A-Z, 0-9, and spaces.");
-//       return null;
-//     }
-//   }
-
-//   return cleanedTitleValue;
-// };
 
 const cleanInput = (inputValue, stringToShowWhatField) => {
   let cleanedValue = inputValue.trim().toUpperCase();
@@ -57,10 +40,6 @@ form.addEventListener("submit", (event) => {
   const descriptionValue = cleanInput(descriptionInput.value, "description");
   const urlValue = urlInput.value.trim();
 
-  // const newEntries = revisionDates.map((date) => ({
-  //   topic: topicNameValue,
-  //   date: format(date, "yyyy-MM-dd"),
-  // }));
 
   const newEntries = [{
     url: urlValue,
