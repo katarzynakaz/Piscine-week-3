@@ -14,7 +14,7 @@
 
     <div class="my-3 px-3">
       <label for="userSelection" class="form-label"
-        >Select the user to view their revision dates</label
+        >Select the user to view their bookmarks</label
       >
       <select
         id="userSelection"
@@ -32,36 +32,46 @@
     </div>
 
     <form class="my-5 px-3">
-      <h2 class="h4 mb-2">Add a new topic to the revision schedule</h2>
+      <h2 class="h4 mb-2">Add a new bookmark</h2>
 
-      <label for="firstDate">Select date:</label>
+      <label for="newURL">New URL:</label>
 
       <input
-        type="date"
-        id="firstDate"
-        class="form-control datepicker"
-        name="firstDate"
+        type="url"
+        id="newURL"
+        class="form-control"
+        name="newURL"
+        placeholder="Enter your URL"
         required
       />
-      <span id="dateDisplay"></span>
+      <span id="newurl"></span>
 
       <br />
-      <label for="topicName">Subject:</label>
+      <label for="newURLTitle">Subject:</label>
       <input
         type="text"
-        id="topicName"
+        id="newURLTitle"
         class="form-control"
-        placeholder="Enter topic name"
+        placeholder="Title"
+        required
+      />
+      <br />
+      <label for="newURLDesc">Description:</label>
+      <input
+        type="text"
+        id="newURLDesc"
+        class="form-control"
+        placeholder="Description"
         required
       />
       <br />
       <button type="submit" class="btn btn-primary fw-bold my-4">
-        Add to schedule
+        Add new URL
       </button>
       <br />
-      <span id="topicAdded" class="text-success my-2"></span>
+      <span id="newURLAdded" class="text-success my-2"></span>
     </form>
-    <div id="displayAgendaBox"></div>
+    <div id="displayBookmarks"></div>
 
     <script src="script.mjs" type="module"></script>
   </body>
