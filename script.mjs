@@ -12,10 +12,10 @@ const displayBookmarks = document.querySelector("#displayBookmarks");
 
 selectedUser.addEventListener("change", (e) => {
 	const selectedUserId = e.target.value;
-	displayABookmarks.innerHTML = "";
+	displayBookmarks.innerHTML = "";
 
 	if (selectedUserId === "default") {
-		displayAgenda.textContent = "Please select a user to view their bookmarks.";
+		displayBookmarks.textContent = "Please select a user to view their bookmarks.";
 		return;
 	}
 
