@@ -73,7 +73,7 @@ form.addEventListener("submit", (event) => {
     selectedUserValue === "default" ||
     !urlValue ||
     !descriptionValue ||
-    titleValue === ""
+    !titleValue
   ) {
     alert("Please fill all the fields");
     return;
