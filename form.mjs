@@ -1,86 +1,98 @@
 import { addData, getData } from "./storage.mjs";
-import { renderAgenda } from "./script.mjs";
-import { addDays, addMonths, addYears, format } from "https://esm.sh/date-fns";
+import { renderBookmarks } from "./script.mjs";
 
 const selectedUser = document.querySelector("#userSelection");
-const topicName = document.querySelector("#topicName");
-const firstDate = document.querySelector("#firstDate");
-const topicAdded = document.querySelector("#topicAdded");
+const urlInput = document.querySelector("#newURL");
+const titleInput = document.querySelector("#newURLTitle");
+const descriptionInput = document.querySelector("#newURLDesc");
+const successMessageSpan = document.querySelector("#newURLAdded");
 
-export function selectDate() {
-  firstDate.value = new Date().toISOString().split("T")[0];
-}
 
 const form = document.querySelector("form");
-const displayAgenda = document.querySelector("#displayAgendaBox");
+const displayBookmarks = document.querySelector("#displayBookmarks");
 
-const topicsAllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ";
+const allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 "
 
-const cleanInput = () => {
-  let cleanedTopicValue = topicName.value.trim().toUpperCase();
+// const cleanInput = () => {
+//   let cleanedTitleValue = titleInput.value.trim().toUpperCase();
 
-  if (cleanedTopicValue.length === 0 || cleanedTopicValue.length > 50) {
-    alert("Topic must be between 1 and 50 characters.");
+//   if (cleanedTitleValue.length === 0 || cleanedTitleValue.length > 50) {
+//     alert("Bookmark title must be between 1 and 50 characters and not empty.");
+//     return null;
+//   }
+
+//   for (let char of cleanedTitleValue) {
+//     if (!allowedChars.includes(char)) {
+//       alert("Allowed characters are A-Z, 0-9, and spaces.");
+//       return null;
+//     }
+//   }
+
+//   return cleanedTitleValue;
+// };
+
+const cleanInput = (inputValue, stringToShowWhatField) => {
+  let cleanedValue = inputValue.trim().toUpperCase();
+
+  if (cleanedValue.length === 0 || cleanedValue.length > 50) {
+    alert(`${stringToShowWhatField} must be between 1 and 50 characters and not empty.`);
     return null;
   }
 
-  for (let char of cleanedTopicValue) {
-    if (!topicsAllowedChars.includes(char)) {
-      alert("Allowed characters are A-Z, 0-9, and spaces.");
+  for (let char of cleanedValue) {
+    if (!allowedChars.includes(char)) {
+      alert(`Allowed characters for ${stringToShowWhatField} are A-Z, 0-9, and spaces.`);
       return null;
     }
   }
 
-  return cleanedTopicValue;
+  return cleanedValue;
 };
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const selectedUserValue = selectedUser.value;
-  const topicNameValue = cleanInput();
+  const titleValue = cleanInput(titleInput.value, "Bookmark Title");
+  const descriptionValue = cleanInput(descriptionInput.value, "description");
+  const urlValue = urlInput.value.trim();
 
-  const firstDateValue = firstDate.value;
-  const [year, month, day] = firstDateValue.split("-").map(Number);
-  const inputDate = new Date(year, month - 1, day);
+  // const newEntries = revisionDates.map((date) => ({
+  //   topic: topicNameValue,
+  //   date: format(date, "yyyy-MM-dd"),
+  // }));
 
-  const revisionDates = [
-    addDays(inputDate, 7),
-    addMonths(inputDate, 1),
-    addMonths(inputDate, 3),
-    addMonths(inputDate, 6),
-    addYears(inputDate, 1),
-  ];
-
-  const newEntries = revisionDates.map((date) => ({
-    topic: topicNameValue,
-    date: format(date, "yyyy-MM-dd"),
-  }));
+  const newEntries = [{
+    url: urlValue,
+    title: titleValue,
+    description: descriptionValue,
+    createdTime: new Date().toISOString(), 
+  }];
 
   if (
     selectedUserValue === "default" ||
-    !firstDateValue ||
-    !topicNameValue ||
-    topicNameValue === ""
+    !urlValue ||
+    !descriptionValue ||
+    titleValue === ""
   ) {
     alert("Please fill all the fields");
     return;
   }
+  
 
   addData(selectedUserValue, newEntries);
-  topicAdded.innerHTML = "Topic added";
+  successMessageSpan.innerHTML = "Bookmark added";
 
-  displayAgenda.innerHTML = "";
+  urlInput.value = "";
+  titleInput.value = "";
+  descriptionInput.value = "";
+  displayBookmarks.innerHTML = "";
 
   const updatedData = getData(selectedUserValue);
   if (updatedData && updatedData.length > 0) {
-    const futureDate = updatedData.filter(
-      (entry) => new Date(entry.date) >= new Date(firstDateValue)
-    );
-    futureDate.sort((a, b) => new Date(a.date) - new Date(b.date));
-    renderAgenda(futureDate);
+    
+    renderBookmarks(updatedData);
   }
 
-  document.querySelector("#topicName").value = "";
-  selectDate();
+
 });
