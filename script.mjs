@@ -1,5 +1,5 @@
 import { getUserIds } from "./common.mjs";
-// import { selectDate } from "./form.mjs";
+import "./form.mjs";
 import { getData } from "./storage.mjs";
 
 window.onload = function () {
